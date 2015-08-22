@@ -1,14 +1,11 @@
  
 #include <LiquidCrystal.h>
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2); //piny w arduino - LCD
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); //pins for LCD
 
 #include "DHT.h" 
-//#define DHTPIN 6 //pin w arduino dla DHT11
-//#define DHTTYPE DHT11 
-//DHT dht(DHTPIN, DHTTYPE); 
- 
-#define DHT1PIN 6 
-#define DHT2PIN 7   
+
+#define DHT1PIN 6 //dht11 pin 6
+#define DHT2PIN 7 //dht22 pin 7
 #define DHT1TYPE DHT11 
 #define DHT2TYPE DHT22  
  
@@ -24,15 +21,15 @@ dht2.begin(); //inicjalizacja sensora DHT22
 }
 void loop() {
   
- int h1 = dht1.readHumidity(); //odczyt wilgotnosci
- int t1 = dht1.readTemperature(); // odczyt temperatury
+ int h1 = dht1.readHumidity(); //read humidity
+ int t1 = dht1.readTemperature(); // read temperature
  
- int h2 = dht2.readHumidity(); //odczyt wilgotnosci
- int t2 = dht2.readTemperature(); // odczyt temperatury
+ int h2 = dht2.readHumidity(); //read humidity
+ int t2 = dht2.readTemperature(); // read temperature
       
-  // wyswietlanie na LCD
+  //show on LCD
   lcd.begin(16, 2);
-  //linia 1 
+  //line 1 
   if(t1 <=19){
   lcd.print("Zimno ");
    }else if((t1 >=20) && (t1 <=24)){
@@ -42,7 +39,6 @@ void loop() {
   }else if (t1 >=28){
   lcd.print("Goraco");
   }
-  //lcd.print("Pogoda ");
   
   lcd.setCursor(9, 0);
   lcd.print(t1);
@@ -51,7 +47,7 @@ void loop() {
   lcd.print(h1);
   lcd.print("%");
   
-  //linia2
+  //line 2
   lcd.setCursor(0, 1);
   
  if(t2 <19){
@@ -74,6 +70,6 @@ void loop() {
   lcd.print(h2);
   lcd.print("%");
  
-  delay(10000); //odczyt co 10 sekund
+  delay(10000); //read every 10 sec
  
 }
